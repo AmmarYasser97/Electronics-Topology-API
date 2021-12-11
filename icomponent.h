@@ -4,8 +4,10 @@
 #include <bits/stdc++.h>
 #include <unordered_map>
 #include <string>
+#include "nlohmann/json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 struct componentValue {
   float deafault;
@@ -16,8 +18,6 @@ struct componentValue {
 class IComponent {
 public:
 //  IComponent();
-  virtual void setType(string type) = 0;
-  virtual string getType() = 0;
   virtual void setID(string id) = 0;
   virtual string getID() = 0;
   virtual void setComponentValue(componentValue value) = 0;

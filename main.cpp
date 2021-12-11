@@ -9,3 +9,5 @@ int main() {
     cout << t1.readJSON("/home/ammar/CLionProjects/topologyAPI/topology.json") << endl;
     return 0;
 }
+
+// component.dump(2)

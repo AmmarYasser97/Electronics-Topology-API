@@ -1,20 +1,21 @@
 #ifndef TOPOLOGY_H
 #define TOPOLOGY_H
 
-#include "nlohmann/json.hpp"
+#include "memory.h"
 #include "icomponent.h"
+#include "resistance.h"
+#include "nmos.h"
 
-using namespace std;
-using json = nlohmann::json;
 
 class Topology {
 private:
   string id;
-  vector <IComponent> *components{};
+  vector <IComponent*> *components;
+  static Memory memory;
 
 public:
   Topology(string id);
-  bool readJSON(const string filename);
+  bool readJSON(const string& filename);
   bool writeJSON(string topologyID);
   vector<Topology> queryTopologies();
   bool deleteTopology(string topologyID);

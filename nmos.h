@@ -3,17 +3,14 @@
 
 #include "icomponent.h"
 
-class Nmos : IComponent {
+class Nmos : public IComponent {
 private:
   string nmosID;
-  string nmostype;
-  componentValue nmosvalue;
-  unordered_map<string, string> netlist;
+  componentValue nmosValue;
+  unordered_map<string, string> nmosNetlist;
 
 public:
-  Nmos();
-  void setType(string type);
-  string getType();
+  Nmos(string id, json value, json netlist);
   void setID(string id);
   string getID();
   void setComponentValue(componentValue value);

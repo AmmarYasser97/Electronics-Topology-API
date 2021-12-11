@@ -3,17 +3,14 @@
 
 #include "icomponent.h"
 
-class Resistance : IComponent {
+class Resistance : public IComponent {
 private:
   string resID;
-  string resType;
   componentValue resValue;
-  unordered_map<string, string> netlist;
+  unordered_map<string, string> resNetlist;
 
 public:
-  Resistance();
-  void setType(string type);
-  string getType();
+  Resistance(string id, json value, json netlist);
   void setID(string id);
   string getID();
   void setComponentValue(componentValue value);

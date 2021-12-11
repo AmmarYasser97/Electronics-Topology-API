@@ -1,16 +1,14 @@
 #include "resistance.h"
 
-Resistance::Resistance()
+Resistance::Resistance(string id, json value, json netlist): resID(id)
 {
+    resValue.deafault =  value.at("default");
+    resValue.min = value.at("min");
+    resValue.max = value.at("max");
 
-}
-
-void Resistance::setType(string type){
-
-}
-
-string Resistance::getType(){
-
+    for(auto& node: netlist.items()){
+        resNetlist[node.key()] = node.value();
+    }
 }
 
 void Resistance::setID(string id){

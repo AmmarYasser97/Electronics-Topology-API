@@ -1,16 +1,14 @@
 #include "nmos.h"
 
-Nmos::Nmos()
+Nmos::Nmos(string id, json value, json netlist): nmosID(id)
 {
+    nmosValue.deafault =  value.at("defaultx");
+    nmosValue.min = value.at("min");
+    nmosValue.max = value.at("max");
 
-}
-
-void Nmos::setType(string type){
-
-}
-
-string Nmos::getType(){
-
+    for(auto& node: netlist.items()){
+        nmosNetlist[node.key()] = node.value();
+    }
 }
 
 void Nmos::setID(string id){
