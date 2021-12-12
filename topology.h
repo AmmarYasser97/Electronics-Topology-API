@@ -6,23 +6,23 @@
 #include "nmos.h"
 #include "Memory.h"
 
+typedef multimap<string, string>::iterator MMAPIterator;
 
 class Topology {
 private:
   string id;
   vector <IComponent*> *components;
-  unordered_map<string, string> nodesDatabase;
+  multimap<string, string> nodesDatabase;
   Memory *memory;
 
 public:
   explicit Topology(string id);
-  bool readJSON(const string& filename);
-  bool writeJSON(string topologyID, string file);
+  int readJSON(const string& filename);
+  bool writeJSON(string file);
   vector<json> queryTopologies();
-  bool deleteTopology(string topologyID);
-  vector<json> queryDevices(string topologyID);
-  vector<string> queryDevicesWithNetlistNode(string topologyID,
-                                                 string netlistnodeID);
+  bool deleteTopology();
+  vector<json> queryDevices();
+  vector<string> queryDevicesWithNetlistNode(string netlistnodeID);
   ~Topology();
 };
 

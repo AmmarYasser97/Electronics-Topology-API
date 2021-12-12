@@ -4,9 +4,14 @@
 using namespace std;
 
 int main() {
-    Topology t1("t1");
+    Topology top1("top1");
 
-    cout << t1.readJSON("/home/ammar/CLionProjects/topologyAPI/topology.json") << endl;
+    cout << top1.readJSON("/home/ammar/CLionProjects/topologyAPI/topology.json") << endl;
+
+    top1.queryDevices();
+    top1.queryDevicesWithNetlistNode("n1");
+    top1.deleteTopology();
+
     return 0;
 }
 

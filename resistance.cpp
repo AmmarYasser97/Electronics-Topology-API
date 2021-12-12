@@ -1,5 +1,11 @@
 #include "resistance.h"
 
+/**
+ *
+ * @param id
+ * @param value
+ * @param netlist
+ */
 Resistance::Resistance(string id, json value, json netlist): resID(id)
 {
     resValue.deafault =  value.at("default");

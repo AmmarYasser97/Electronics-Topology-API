@@ -8,10 +8,13 @@ Memory *Memory::getMemory() {
     return memory;
 }
 
-bool Memory::add(const string& id, json file){
+int Memory::add(const string& id, json file){
+    if(this->blocks.find(id) != this->blocks.end())
+        return -1;
+
     this->blocks[id] = file;
     this->size++;
-    return true;
+    return this->size;
 }
 
 bool Memory::remove(const json& fileID){

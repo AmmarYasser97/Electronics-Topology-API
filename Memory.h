@@ -16,7 +16,7 @@ private:
 
 public:
     static Memory *getMemory();
-    bool add(const string& id, json file);
+    int add(const string& id, json file);
     bool remove(const json& fileID);
     json getFile(string fileID);
     vector<json> query();
