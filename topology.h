@@ -1,26 +1,27 @@
 #ifndef TOPOLOGY_H
 #define TOPOLOGY_H
 
-#include "memory.h"
 #include "icomponent.h"
 #include "resistance.h"
 #include "nmos.h"
+#include "Memory.h"
 
 
 class Topology {
 private:
   string id;
   vector <IComponent*> *components;
-  static Memory memory;
+  unordered_map<string, string> nodesDatabase;
+  Memory *memory;
 
 public:
-  Topology(string id);
+  explicit Topology(string id);
   bool readJSON(const string& filename);
-  bool writeJSON(string topologyID);
-  vector<Topology> queryTopologies();
+  bool writeJSON(string topologyID, string file);
+  vector<json> queryTopologies();
   bool deleteTopology(string topologyID);
-  vector<IComponent> *queryDevices(string topologyID);
-  vector<IComponent> *queryDevicesWithNetlistNode(string topologyID,
+  vector<json> queryDevices(string topologyID);
+  vector<string> queryDevicesWithNetlistNode(string topologyID,
                                                  string netlistnodeID);
   ~Topology();
 };

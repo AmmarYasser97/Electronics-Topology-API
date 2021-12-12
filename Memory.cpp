@@ -1,21 +1,47 @@
 #include "Memory.h"
 
-Memory::Memory()= default;
+Memory::Memory() {};
 
-bool Memory::addToMemory(const string& id, json file){
+Memory *Memory::getMemory() {
+    if(!memory)
+        memory = new Memory;
+    return memory;
+}
+
+bool Memory::add(const string& id, json file){
     this->blocks[id] = file;
+    this->size++;
+    return true;
 }
 
-bool Memory::removeFromMemory(const json& fileID){
+bool Memory::remove(const json& fileID){
+    if(this->size < 1)
+        return false;
+
     for(auto& block: this->blocks){
-        if(block.first == fileID)
+        if(block.first == fileID) {
             this->blocks.erase(fileID);
+            size --;
+            return true;
+        }
+    }
+    return false;
+}
+
+json Memory::getFile(string fileID) {
+    for (auto &block: this->blocks) {
+        if (block.first == fileID) {
+            return block.second;
+        }
     }
 }
 
-unordered_map<string ,json> Memory::queryMemory(){
+vector<json> Memory::query(){
+    vector<json> result;
     for(const auto& block: this->blocks){
-        cout << "Memory ID" << block.first << endl << block.second.dump(2)<<endl;
-        cout << "=================================================================="<<endl;
+        result.push_back(block.second);
     }
+    return result;
 }
+
+Memory *Memory:: memory = 0;

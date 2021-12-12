@@ -9,13 +9,17 @@ using json = nlohmann::json;
 
 class Memory {
 private:
+    static Memory *memory;
+    int size;
     unordered_map<string, json> blocks;
+    Memory();
 
 public:
-    Memory();
-    bool addToMemory(const string& id, json file);
-    bool removeFromMemory(const json& fileID);
-    unordered_map<string ,json> queryMemory();
+    static Memory *getMemory();
+    bool add(const string& id, json file);
+    bool remove(const json& fileID);
+    json getFile(string fileID);
+    vector<json> query();
 };
 
 
