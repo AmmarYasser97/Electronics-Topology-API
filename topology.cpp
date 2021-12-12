@@ -2,11 +2,21 @@
 
 using namespace std;
 
+/**
+ * Initialize the topology class instance by passing the topology id.
+ * @param topologyID unique identifier for the topology
+ */
 Topology::Topology(string topologyID): id(topologyID){
     components = new vector <IComponent*>;
     memory = memory->getMemory();
 }
 
+/**
+ * Read topology JSON file from passed filename by the help of third-party JSON library
+ * Add the topology in the memory for future use
+ * @param filename
+ * @return integer value represent the address of the stored file in the memory
+ */
 int Topology::readJSON(const string& filename){
     ifstream topologyFile(filename);
     json topologyJSON;
@@ -23,6 +33,11 @@ int Topology::readJSON(const string& filename){
     return memory->add(topologyJSON["id"], topologyJSON);
 }
 
+/**
+ * Given a existing file name with getting the topology id from the current instance
+ * @param file
+ * @return boolean value indicates if this file found in the memory or not
+ */
 bool Topology::writeJSON(string file){
     json topology = memory->getFile(this->id);
 
@@ -31,14 +46,26 @@ bool Topology::writeJSON(string file){
     return true;
 }
 
+/**
+ * Query all the topologies that currently in the memory
+ * @return List of topologies
+ */
 vector<json> Topology::queryTopologies(){
     return memory->query();
 }
 
+/**
+ * Delete given topology id (the topology id from the current instance)
+ * @return boolean value indicates if the topology found in the memory
+ */
 bool Topology::deleteTopology(){
     return memory->remove(this->id);
 }
 
+/**
+ * Query all the devices of passed topology (the topology from the current instance)
+ * @return List of the topology's devices
+ */
 vector<json> Topology::queryDevices(){
     vector<json> result;
 
@@ -49,6 +76,13 @@ vector<json> Topology::queryDevices(){
     return result;
 }
 
+/**
+ * For every device in a given topology (the topology from the current instance),
+ * store all its nodes from netlist into multi value hash table as (nodelistvalue, device ID) then
+ * search with the netlistnodeID in the hashtable and return a vector of the devices connected to this node.
+ * @param netlistnodeID node unique id
+ * @return vector of the devices connected to passed nodeID
+ */
 vector<string> Topology::queryDevicesWithNetlistNode(string netlistnodeID){
     vector<string> result;
     string node, value;
@@ -68,6 +102,9 @@ vector<string> Topology::queryDevicesWithNetlistNode(string netlistnodeID){
     return result;
 }
 
+/**
+ * Class destructor deletes the components pointer
+ */
 Topology::~Topology() {
     delete components;
 }
